@@ -1,0 +1,110 @@
+<head>
+	<title>Lotofácil</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header page-scroll">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#page-top">Gerenciador de Bolões</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="hidden">
+						<a href="#page-top"></a>
+					</li>
+					<li class="page-scroll">
+						<a href="#lotofacil">Lotofacil</a>
+					</li>
+					
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<!-- Header -->
+
+
+	<section id="principal">
+		<button class="btn btn-primary">Add Concurso</button>
+		
+		<div class="container-fluid">
+			{{#each concs}}
+			{{> concurso}}
+			{{/each}}
+
+		</div>
+	</section>
+</body>
+
+<template name="jogo">
+	{{#each jogos}}
+	<tr>
+		{{#each numeros}}
+		<td>{{this}}</td>
+		{{/each}}
+		<td>{{acertos}}</td>
+		<td>{{valorGanho}}</td>
+	</tr>
+	{{/each}}
+</template>
+
+<template name="concurso">
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		<div class="panel panel-default">
+			<div class="panel-heading"  role="tab" id="concurso{{numeroConcurso}}">
+				<h4 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{numeroConcurso}}" aria-expanded="false" aria-controls="collapse{{numeroConcurso}}">
+						Concurso nº: {{numeroConcurso}} - Data: {{dataConcurso}} - {{#if finalizado}}<span style="color: #006400">Valor Total Ganho(R$):{{totalGanhoConcurso}}</span> - <span style="background-color: red">FINALIZADO</span>{{/if}}
+					</a>
+					<button class="btn btn-primary btnBuscarResultado glyphicon glyphicon-search pull-right" data-numeroconcurso="{{numeroConcurso}}"></button>
+				</h4>
+			</div>
+			<div id="collapse{{numeroConcurso}}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="concurso{{numeroConcurso}}">
+				<div class="panel-body">
+					<h4>Jogos</h4>
+					<div class="table-responsive">          
+						<table class="table">
+							<thead>
+								<tr>
+									<th>D1</th>
+									<th>D2</th>
+									<th>D3</th>
+									<th>D4</th>
+									<th>D5</th>
+									<th>D6</th>
+									<th>D7</th>
+									<th>D8</th>
+									<th>D9</th>
+									<th>D10</th>
+									<th>D11</th>
+									<th>D12</th>
+									<th>D13</th>
+									<th>D14</th>
+									<th>D15</th>
+									<th>Acertos</th>
+									<th>Valor Ganho (R$)</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{> jogo}}
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
