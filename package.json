@@ -2,9 +2,8 @@
   "name": "gerenciadorbolao",
   "private": true,
   "scripts": {
-    "start": "node meteorshim.js"
+    "start": "meteor run"
   },
-  "main": "meteorshim.js",
   "dependencies": {
     "meteor-node-stubs": "~0.2.0"
   }
