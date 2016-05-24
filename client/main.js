@@ -1,80 +1,54 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { Accounts } from 'meteor/accounts-base'
 
 import './main.html';
 
+Meteor.subscribe("userData");
 
-Concs = new Mongo.Collection('concursos');
-Resultados = new Mongo.Collection('resultados');
+Template['override_loginButtonsLoggedOutDropdown'].replaces('_loginButtonsLoggedOutDropdown');
+Template['override_loginButtonsLoggedInDropdown'].replaces('_loginButtonsLoggedInDropdown');
 
-Meteor.subscribe("concursos");
-Meteor.subscribe("resultados");
+Avatar.setOptions({
+  fallbackType: "initials",
+   defaultImageUrl: "utilities_avatar/default.png" 
+});
 
-	
-	Template.body.helpers({	
-		concs: function(){			
-			return Concs.find();
-		}
-		
 
-		
-	});
- 
-	Template.body.events({
-		'click .btnBuscarResultado': function (event, instance) {
-			var jogos = this.jogos;
-			var concurso = this;
-			console.log(this);
-			var numeroConcurso = this.numeroConcurso;
-			var concursoId = this._id;
-			var totalGanhoConcurso = 0;
-			
-			Meteor.call('restServiceCall', 'http://wsloterias.azurewebsites.net/api/sorteio/getresultado/3/'+numeroConcurso, function(err, respJson) {
-				if(err) {
-					window.alert("Error: " + err.reason);
-					console.log("error occured on receiving data on server. ", err );
-				} else {
-					var resultado = respJson.Sorteios[0].Numeros;
-					
-					var resultadoDB = Resultados.find({"NumeroConcurso":numeroConcurso}).fetch();
-					if(resultadoDB.length == 0){
-							Meteor.call("insertResultado",respJson);	
-					}
-					
-					
-					
-					$.each(jogos, function( index, value ) {
-						var acertos = 0;
-						var jogo = value;
-						$.each(value.numeros, function( index2, value2 ) {
-							if($.inArray( value2 , resultado ) != -1){
-								acertos += 1;
-							}
-						});
-						
-						jogo.acertos = acertos;
-						$.each(respJson.Sorteios[0].Premios, function( indexPrem, valuePrem ) {
-							var numAcertos = valuePrem.Faixa.substring(0, 2);
-							if(numAcertos == acertos){
-								jogo.valorGanho = valuePrem.Valor;
-								totalGanhoConcurso += jogo.valorGanho;
-							}
-						});
-						
-						
-						
-					});
-					
-					
-					Meteor.call("finalizaConcurso",concursoId,jogos,totalGanhoConcurso);
-					
-				}
-				
-			});
-			
-			
-		}
-	});
+Template.body.helpers({	
+    logUser: function() {
+    	console.log(Meteor.user());
+    return Meteor.user();
+  }
+});
+
+Template.body.events({
+
+});
+
+Template.loading.rendered = function () {
+  if ( ! Session.get('loadingSplash') ) {
+    this.loading = window.pleaseWait({
+      logo: '/images/Meteor-logo.png',
+      backgroundColor: '#7f8c8d',
+      loadingHtml: message + spinner
+    });
+    Session.set('loadingSplash', true); // just show loading splash once
+  }
+};
+
+Template.loading.destroyed = function () {
+  if ( this.loading ) {
+    this.loading.finish();
+  }
+};
+
+var message = '<p class="loading-message">Loading Message</p>';
+var spinner = '<div class="sk-spinner sk-spinner-rotating-plane"></div>';
+
+Template.registerHelper('formatDate', function(date) {
+  return moment(date).format('DD/MM/YYYY');
+});
 
 
 

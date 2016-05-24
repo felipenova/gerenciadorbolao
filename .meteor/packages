@@ -21,3 +21,14 @@ matb33:bootstrap-full
 matb33:bootstrap-tables
 http
 session
+iron:router
+accounts-facebook
+accounts-google
+utilities:avatar
+useraccounts:unstyled
+useraccounts:core
+aldeed:template-extension
+accounts-ui-unstyled
+accounts-ui
+check
+momentjs:moment

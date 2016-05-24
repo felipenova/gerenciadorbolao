@@ -1,6 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-Concs = new Mongo.Collection('concursos');
-Resultados = new Mongo.Collection('resultados');
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -8,33 +6,27 @@ Meteor.startup(() => {
 	 
 });
 
-Meteor.methods({
-		restServiceCall: function (url) {
-			var result = Meteor.http.get(url, {timeout:30000});
-			if(result.statusCode==200) {
-				var respJson = JSON.parse(result.content);
-				console.log("response received.");
-				return respJson;
-			} else {
-				console.log("Response issue: ", result.statusCode);
-				var errorJson = JSON.parse(result.content);
-				throw new Meteor.Error(result.statusCode, errorJson.error);
-			}
-		},
-	    insertResultado: function(resultado){
-		  Resultados.insert(resultado);
-	    },
-	    finalizaConcurso: function(concursoId,jogos,totalGanhoConcurso){
-		  Concs.update({_id : concursoId},{$set:{jogos : jogos, finalizado: true, totalGanhoConcurso: totalGanhoConcurso}});
-	    }
 
-    }); 
+// Generate user initials after Facebook login
+Accounts.onCreateUser((options, user) => {
+  
+ if (user.services.facebook && options.profile) {
+        options.profile.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large";
+        user.profile = options.profile;
+  }
 
-Meteor.publish("concursos", function(){
-   return Concs.find();	
+
+  // Don't forget to return the new user object at the end!
+  return user;
 });
-			   
-Meteor.publish("resultados", function(){
-   return Resultados.find();	
+
+
+Meteor.publish("userData", function () {
+  if (this.userId) {
+    return Meteor.users.find({_id: this.userId},
+                             {fields: {'services': 1, 'others': 1}});
+  } else {
+    this.ready();
+  }
 });
 
