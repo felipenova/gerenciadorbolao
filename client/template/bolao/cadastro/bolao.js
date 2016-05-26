@@ -1,32 +1,18 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
-import './bolao.html';
 
 
-Boloes = new Mongo.Collection('boloes');
-Participantes = new Mongo.Collection('participantes');
+//Boloes = new Mongo.Collection('boloes');
+//Participantes = new Mongo.Collection('participantes');
 
 
-Template.searchBolao.onCreated( () => {
-	let template = Template.instance();
-
-	template.searchQuery = new ReactiveVar();
-	template.searching   = new ReactiveVar( false );
-	template.subscribe('participantes');
-
-	template.autorun( () => {
-		template.subscribe( 'boloesSearch', template.searchQuery.get(), () => {
-			setTimeout( () => {
-				template.searching.set( false );
-				Session.set("loadingSplash",false);
-			}, 300 );
-		});
-	});
+Template.cadBolao.onCreated( () => {
+	
 });
 
-Template.searchBolao.helpers({
-	searching() {
+Template.cadBolao.helpers({
+	/*searching() {
 		return Template.instance().searching.get();
 	},
 	query() {
@@ -45,10 +31,10 @@ Template.searchBolao.helpers({
 			resposta = true;
 		}
 		return resposta;
-	}
+	}*/
 });
 
-Template.searchBolao.events({
+Template.cadBolao.events({
 	'keyup [name="search"]': _.debounce(function(event, template) {
 		let value = event.target.value.trim();
 

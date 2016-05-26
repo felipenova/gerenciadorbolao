@@ -1,15 +1,9 @@
 <template name="concursoPag">
-		<button class="btn btn-primary">Add Concurso</button>
-		
-		<div class="container-fluid">
-			{{#each concs}}
-			{{> concurso}}
-			{{/each}}
-
-		</div>
+	<button class="btn btn-primary">Add Concurso</button>		
+	{{#each concs}}
+	{{> concurso}}
+	{{/each}}
 </template>
-
-
 
 <template name="jogo">
 	{{#each jogos}}

@@ -1,14 +1,9 @@
 <template name="boloesPag">
-	<div class="container-fluid" style="margin-top:5px;">
-		<div class="row">
-			{{> searchBolao}}
-		</div>
-	</div>
+ {{> searchBolao}}
 </template>
 
-
 <template name="searchBolao">
-  <div class="page-header clearfix">
+  <div class=" clearfix">
     <h4 class="pull-left">Bolões</h4>
     <div class="pull-right">
       <input type="text" name="search" class="form-control" width="250px" placeholder="Encontre um bolão...">
@@ -17,33 +12,28 @@
 
   <ul class="list-group">
     {{#if searching}}
-      {{> loading}}
+    {{> loading}}
     {{else}}
-    	<li class="list-group-item clearfix" style="background-color:#fafee3">
-    		<span class="pull-left col-md-4">NOME</span>
-    		<span class="pull-left col-md-5">DESCRIÇÃO</span>
-          <span class="pull-left col-md-2">DT. CRIAÇÃO</span>
-          <span class="pull-right col-md-1"></span>
-    	</li>
-      {{#each boloes}}
-        <li class="list-group-item clearfix">
-
-          <span class="pull-left col-md-4">{{nome}}</span>
-          <span class="pull-left col-md-5" >{{descricao}}</span>
-          <span class="pull-left col-md-2">{{formatDate dataCriacao}}</span>
-         
-          <span class="pull-right col-md-1">{{#unless  verificaUsuarioParticipante}}<span class="glyphicon glyphicon-plus" style="cursor: pointer;" name="btnParticipar"></span>{{/unless }}</span>
-
-          
-        </li>
-      {{else}}
-        <p class="alert alert-warning">Nenhum bolão encontrado para {{query}}.</p>
-      {{/each}}
+    <li class="list-group-item clearfix" style="background-color:#fafee3">
+      <span class="pull-left col-md-4">NOME</span>
+      <span class="pull-left col-md-5">DESCRIÇÃO</span>
+      <span class="pull-left col-md-2">DT. CRIAÇÃO</span>
+      <span class="pull-right col-md-1"></span>
+    </li>
+    {{#each boloes}}
+    <li class="list-group-item clearfix">
+      <span class="pull-left col-md-4">{{nome}}</span>
+      <span class="pull-left col-md-5" >{{descricao}}</span>
+      <span class="pull-left col-md-2">{{formatDate dataCriacao}}</span>
+      <span class="pull-right col-md-1">{{#unless  verificaUsuarioParticipante}}<span class="glyphicon glyphicon-plus" style="cursor: pointer;" name="btnParticipar"></span>{{/unless }}</span>
+    </li>
+    {{else}}
+    <p class="alert alert-warning">Nenhum bolão encontrado para {{query}}.</p>
+    {{/each}}
     {{/if}}
   </ul>
+  
 </template>
-
-
 
 <template name="boloes">
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">

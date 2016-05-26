@@ -1,6 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-Boloes = new Mongo.Collection('boloes');
-Participantes = new Mongo.Collection('participantes');
 
 Boloes._ensureIndex({
 	nome: 1,
@@ -10,48 +8,33 @@ Boloes._ensureIndex({
 
 Meteor.startup(() => {
   // code to run on server at startup
-  
-  
 });
-
 
 Meteor.publish( 'boloesSearch', function( search ) {
   check( search, Match.OneOf( String, null, undefined ) );
-
   let query      = {},
   projection = { limit: 10, sort: { dataCriacao: 1 } };
-  
   if ( search ) {
-
-  let regex = new RegExp( search, 'i' );
+    let regex = new RegExp( search, 'i' );
     query = {
       ativo:true,
       $or: [
-        { nome: regex }
+      { nome: regex }
        // { descricao: regex }
-      ]
-    };
-
-    projection.limit = 100;
-  } 
-
-var retorno =  Boloes.find(query, projection);
-
-return retorno;
-
-});
+       ]
+     };
+     projection.limit = 100;
+   } 
+   var retorno =  Boloes.find(query, projection);
+   return retorno;
+ });
 
 Meteor.publish("participantes", function(){
-   return Participantes.find(); 
+ return Participantes.find({"usuario":this.userId}); 
 });
 
-
 Meteor.methods({
-	 participar: function(bolao){
-     Participantes.insert({"usuario":this.userId,"bolao":bolao._id});
-    }
-
+  participar: function(bolao){
+   Participantes.insert({"usuario":this.userId,"bolao":bolao._id});
+ }
 }); 
-
-
-
