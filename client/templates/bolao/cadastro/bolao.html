@@ -1,0 +1,59 @@
+<template name="bolaoPag">
+ {{> cadBolao}}
+</template>
+
+<template name="cadBolao">
+  <div class="col-md-5">
+    <div class="panel panel-primary"> 
+      <div class="panel-heading"> 
+        <h3 class="panel-title">Novo Bolão</h3> 
+      </div> 
+      <div class="panel-body"> 
+        {{#autoForm collection="Boloes" id="cadBolaoForm" type="insert" }}
+        {{> afQuickField name="nome"}}
+        {{> afQuickField name="descricao"}}
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        {{/autoForm}}
+      </div> 
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <div class="panel panel-primary"> 
+      <div class="panel-heading"> 
+        <h3 class="panel-title">Concursos</h3> 
+      </div> 
+      <div class="panel-body"> 
+
+      </div> 
+    </div>
+  </div>
+</template>
+
+<template name="editBolao">
+  <div class="col-md-5">
+    <div class="panel panel-primary"> 
+      <div class="panel-heading"> 
+        <h3 class="panel-title">Bolão - {{nome}}</h3> 
+      </div> 
+      <div class="panel-body"> 
+        {{#autoForm collection="Boloes" id="updateBolaoForm" type="update" doc=this}}
+        {{> afQuickField name="nome"}}
+        {{> afQuickField name="descricao"}}
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        {{/autoForm}}
+      </div> 
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <div class="panel panel-primary"> 
+      <div class="panel-heading"> 
+        <h3 class="panel-title">Concursos</h3> 
+      </div> 
+      <div class="panel-body"> 
+
+      </div> 
+    </div>
+  </div>
+</template>

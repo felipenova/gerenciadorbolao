@@ -10,7 +10,20 @@ Meteor.startup(() => {
   // code to run on server at startup
 });
 
-Meteor.publish( 'boloesSearch', function( search ) {
+
+Meteor.publish("boloes", function(){
+ return Boloes.find(); 
+});
+
+Meteor.publish("participantes", function(){
+ return Participantes.find({"usuario":this.userId}); 
+});
+
+Meteor.methods({
+  participar: function(bolao){
+   Participantes.insert({"usuario":this.userId,"bolao":bolao._id});
+ },
+ buscar: function(search){
   check( search, Match.OneOf( String, null, undefined ) );
   let query      = {},
   projection = { limit: 10, sort: { dataCriacao: 1 } };
@@ -26,15 +39,7 @@ Meteor.publish( 'boloesSearch', function( search ) {
      projection.limit = 100;
    } 
    var retorno =  Boloes.find(query, projection);
-   return retorno;
- });
-
-Meteor.publish("participantes", function(){
- return Participantes.find({"usuario":this.userId}); 
-});
-
-Meteor.methods({
-  participar: function(bolao){
-   Participantes.insert({"usuario":this.userId,"bolao":bolao._id});
+   console.log(retorno.fetch());
+   return retorno.fetch();
  }
 }); 

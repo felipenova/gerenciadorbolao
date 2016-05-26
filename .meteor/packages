@@ -32,3 +32,6 @@ accounts-ui-unstyled
 accounts-ui
 check
 momentjs:moment
+aldeed:collection2
+aldeed:autoform
+easy:search
