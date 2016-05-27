@@ -2,11 +2,9 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 Meteor.subscribe("boloes");
+Meteor.subscribe("concursos");
+Meteor.subscribe("participantes");
 
-Template.searchBolao.onCreated( () => {
-	let template = Template.instance();
-	template.subscribe('participantes');
-});
 
 Template.searchBolao.helpers({
 	boloesIndex: () => BoloesIndex,
@@ -26,7 +24,7 @@ Template.searchBolao.helpers({
 	},
 	verificaUsuarioParticipante() {
 		var resposta = false;
-		let participantes = Participantes.find({usuario: Meteor.userId(), bolao: this._id});
+		let participantes = Participantes.find({userId: Meteor.userId(), bolaoId: this._id});
 		if ( participantes.fetch().length > 0 ) {
 			resposta = true;
 		}
@@ -37,5 +35,10 @@ Template.searchBolao.helpers({
 Template.searchBolao.events({
 	'click [name="btnParticipar"]': function(event, template) {
 		Meteor.call("participar",this);
+	},
+    'click [name="btnAbrir"]': function(event, template) {
+    	console.log(this);
+		Router.go('/bolao/'+this._id);
 	}
+	
 });

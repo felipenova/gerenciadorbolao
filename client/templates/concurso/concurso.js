@@ -1,20 +1,10 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
-Meteor.subscribe("concursos");
-Meteor.subscribe("resultados");
-
-Template.concursoPag.helpers({	
-	concs: function(){			
-		return Concs.find();
-	}
-});
-
-Template.concursoPag.events({
+Template.concurso.events({
 	'click .btnBuscarResultado': function (event, instance) {
 		var jogos = this.jogos;
 		var concurso = this;
-		console.log(this);
 		var numeroConcurso = this.numeroConcurso;
 		var concursoId = this._id;
 		var totalGanhoConcurso = 0;

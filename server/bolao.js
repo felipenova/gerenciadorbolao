@@ -16,12 +16,12 @@ Meteor.publish("boloes", function(){
 });
 
 Meteor.publish("participantes", function(){
- return Participantes.find({"usuario":this.userId}); 
+ return Participantes.find({"userId":this.userId}); 
 });
 
 Meteor.methods({
   participar: function(bolao){
-   Participantes.insert({"usuario":this.userId,"bolao":bolao._id});
+   Participantes.insert({"userId":this.userId,"bolaoId":bolao._id});
  },
  buscar: function(search){
   check( search, Match.OneOf( String, null, undefined ) );

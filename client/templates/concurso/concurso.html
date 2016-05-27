@@ -1,10 +1,3 @@
-<template name="concursoPag">
-	<button class="btn btn-primary">Add Concurso</button>		
-	{{#each concs}}
-	{{> concurso}}
-	{{/each}}
-</template>
-
 <template name="jogo">
 	{{#each jogos}}
 	<tr>
@@ -18,49 +11,48 @@
 </template>
 
 <template name="concurso">
-	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-		<div class="panel panel-default">
-			<div class="panel-heading"  role="tab" id="concurso{{numeroConcurso}}">
-				<h4 class="panel-title">
-					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{numeroConcurso}}" aria-expanded="false" aria-controls="collapse{{numeroConcurso}}">
-						Concurso nº: {{numeroConcurso}} - Data: {{dataConcurso}} - {{#if finalizado}}<span style="color: #006400">Valor Total Ganho(R$):{{totalGanhoConcurso}}</span> - <span style="background-color: red">FINALIZADO</span>{{/if}}
-					</a>
-					<button class="btn btn-primary btnBuscarResultado glyphicon glyphicon-search pull-right" data-numeroconcurso="{{numeroConcurso}}"></button>
-				</h4>
-			</div>
-			<div id="collapse{{numeroConcurso}}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="concurso{{numeroConcurso}}">
-				<div class="panel-body">
-					<h4>Jogos</h4>
-					<div class="table-responsive">          
-						<table class="table">
-							<thead>
-								<tr>
-									<th>D1</th>
-									<th>D2</th>
-									<th>D3</th>
-									<th>D4</th>
-									<th>D5</th>
-									<th>D6</th>
-									<th>D7</th>
-									<th>D8</th>
-									<th>D9</th>
-									<th>D10</th>
-									<th>D11</th>
-									<th>D12</th>
-									<th>D13</th>
-									<th>D14</th>
-									<th>D15</th>
-									<th>Acertos</th>
-									<th>Valor Ganho (R$)</th>
-								</tr>
-							</thead>
-							<tbody>
-								{{> jogo}}
-							</tbody>
+	<div class="panel panel-default">
+		<div class="panel-heading"  role="tab" id="concurso{{numeroConcurso}}">
+			<h4 class="panel-title">
+				<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{numeroConcurso}}" aria-expanded="false" aria-controls="collapse{{numeroConcurso}}" style="font-size:15px">
+					Concurso nº: {{numeroConcurso}} - Data: {{dataConcurso}} - {{#if finalizado}}<span style="color: #006400">Valor Total Ganho(R$):{{totalGanhoConcurso}}</span> - <span style="background-color: red">FINALIZADO</span>{{/if}}
+				</a>
+				<span style="cursor:pointer;" class="glyphicon glyphicon-search pull-right btnBuscarResultado"></span>
+			</h4>
+		</div>
+		<div id="collapse{{numeroConcurso}}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="concurso{{numeroConcurso}}">
+			<div class="panel-body">
+				<h4>Jogos</h4>
+				<div class="table-responsive">          
+					<table class="table">
+						<thead>
+							<tr>
+								<th>D1</th>
+								<th>D2</th>
+								<th>D3</th>
+								<th>D4</th>
+								<th>D5</th>
+								<th>D6</th>
+								<th>D7</th>
+								<th>D8</th>
+								<th>D9</th>
+								<th>D10</th>
+								<th>D11</th>
+								<th>D12</th>
+								<th>D13</th>
+								<th>D14</th>
+								<th>D15</th>
+								<th>Acertos</th>
+								<th>Valor Ganho (R$)</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{> jogo}}
+						</tbody>
 
-						</table>
-					</div>
+					</table>
 				</div>
+				
 			</div>
 		</div>
 	</div>

@@ -25,7 +25,7 @@
       <span class="pull-left col-md-4">{{nome}}</span>
       <span class="pull-left col-md-5" >{{descricao}}</span>
       <span class="pull-left col-md-2">{{formatDate dataCriacao}}</span>
-      <span class="pull-right col-md-1">{{#unless  verificaUsuarioParticipante}}<span class="glyphicon glyphicon-plus" style="cursor: pointer;" name="btnParticipar"></span>{{/unless }}</span>
+      <span class="pull-right col-md-1">{{#unless  verificaUsuarioParticipante}}<span class="glyphicon glyphicon-plus" style="cursor: pointer;" name="btnParticipar"></span>{{else}}<span class="glyphicon glyphicon-edit" style="cursor: pointer;" name="btnAbrir"></span> {{/unless }}</span>
     </li>
     
     

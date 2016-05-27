@@ -37,23 +37,33 @@
         <h3 class="panel-title">Bolão - {{nome}}</h3> 
       </div> 
       <div class="panel-body"> 
-        {{#autoForm collection="Boloes" id="updateBolaoForm" type="update" doc=this}}
-        {{> afQuickField name="nome"}}
-        {{> afQuickField name="descricao"}}
-        <button type="submit" class="btn btn-primary">Salvar</button>
-        {{/autoForm}}
-      </div> 
-    </div>
-  </div>
+       {{#autoForm collection="Boloes" id="updateBolaoForm" type="update" doc=this}}
+       {{#if isOwner}}
+       {{> afQuickField name="nome"}}
+       {{> afQuickField name="descricao"}}
+       <button type="submit" class="btn btn-primary">Salvar</button>
+       {{else}}
+       {{> afQuickField name="nome" readOnly="true"}}
+       {{> afQuickField name="descricao" readOnly="true"}}
+       {{/if}}
+       
+       {{/autoForm}}
+     </div> 
+   </div>
+ </div>
 
-  <div class="col-md-7">
-    <div class="panel panel-primary"> 
-      <div class="panel-heading"> 
-        <h3 class="panel-title">Concursos</h3> 
-      </div> 
-      <div class="panel-body"> 
-
-      </div> 
+ <div class="col-md-7">
+  <div class="panel panel-primary"> 
+    <div class="panel-heading">  
+      <h3 class="panel-title">Concursos</h3> 
+    </div> 
+    <div class="panel-body"> 
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      {{#each concursosDoBolao}}
+      {{> concurso}}
+      {{/each}}
     </div>
+    </div> 
   </div>
+</div>
 </template>

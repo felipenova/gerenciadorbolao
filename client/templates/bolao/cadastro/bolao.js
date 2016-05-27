@@ -2,37 +2,17 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 
-
-
-//Boloes = new Mongo.Collection('boloes');
-//Participantes = new Mongo.Collection('participantes');
-
-
 Template.cadBolao.onCreated( () => {
 	
 });
 
-Template.cadBolao.helpers({
-	/*searching() {
-		return Template.instance().searching.get();
+Template.editBolao.helpers({
+	isOwner: function() {
+		return this.autor === Meteor.userId();
 	},
-	query() {
-		return Template.instance().searchQuery.get();
-	},
-	boloes() {
-		let boloes = Boloes.find();
-		if ( boloes ) {
-			return boloes;
-		}
-	},
-	verificaUsuarioParticipante() {
-		var resposta = false;
-		let participantes = Participantes.find({usuario: Meteor.userId(), bolao: this._id});
-		if ( participantes.fetch().length > 0 ) {
-			resposta = true;
-		}
-		return resposta;
-	}*/
+	concursosDoBolao: function(){	
+		return Concs.find({bolaoId: this._id}, {sort: {dataConcurso: -1}});
+	}
 });
 
 Template.cadBolao.events({
@@ -42,20 +22,20 @@ Template.cadBolao.events({
 });
 
 AutoForm.hooks({
-  cadBolaoForm: {
-    onSubmit: function (doc) {
-        Boloes.clean(doc);
-        this.done();
-        return false;
-    },
-    onSuccess:function(operation, result, template){
-    	console.log(result);
-        Router.go('bolaoedit.show',{'_id':result});
-    },
-    onError: function(operation, error, template) {
-        console.log(operation,error)
-    }
-  }
+	cadBolaoForm: {
+		onSubmit: function (doc) {
+			Boloes.clean(doc);
+			this.done();
+			return false;
+		},
+		onSuccess:function(operation, result, template){
+			console.log(result);
+			Router.go('bolaoedit.show',{'_id':result});
+		},
+		onError: function(operation, error, template) {
+			console.log(operation,error)
+		}
+	}
 });
 
 
