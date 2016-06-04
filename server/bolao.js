@@ -20,8 +20,8 @@ Meteor.publish("participantes", function(){
 });
 
 Meteor.methods({
-  participar: function(bolao){
-   Participantes.insert({"userId":this.userId,"bolaoId":bolao._id});
+  participar: function(bolaoId){
+   Participantes.insert({"userId":this.userId,"bolaoId":bolaoId});
  },
  buscar: function(search){
   check( search, Match.OneOf( String, null, undefined ) );

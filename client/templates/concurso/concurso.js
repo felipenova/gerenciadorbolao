@@ -15,12 +15,10 @@ Template.concurso.events({
 				console.log("error occured on receiving data on server. ", err );
 			} else {
 				var resultado = respJson.Sorteios[0].Numeros;
-				
 				var resultadoDB = Resultados.find({"NumeroConcurso":numeroConcurso}).fetch();
 				if(resultadoDB.length == 0){
 					Meteor.call("insertResultado",respJson);	
 				}
-				
 				$.each(jogos, function( index, value ) {
 					var acertos = 0;
 					var jogo = value;
@@ -29,7 +27,6 @@ Template.concurso.events({
 							acertos += 1;
 						}
 					});
-					
 					jogo.acertos = acertos;
 					$.each(respJson.Sorteios[0].Premios, function( indexPrem, valuePrem ) {
 						var numAcertos = valuePrem.Faixa.substring(0, 2);
